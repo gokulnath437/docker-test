@@ -54,7 +54,7 @@ jobs:
 
             # Stop and remove the old container
             
-            docker rm cont -f || true
+            docker rm /cont -f || true
 
             # Remove all old images except the latest one
             #docker image prune -a -f --filter "label!=${{ secrets.DOCKER_USERNAME }}/test-image:latest"
