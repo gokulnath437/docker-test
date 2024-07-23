@@ -24,7 +24,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/test-images:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/test-image:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -39,13 +39,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_KEY }}
 
-         - name: Add user to Docker group
+      - name: Add user to Docker group
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             sudo usermod -aG docker $USER
             sudo chmod 666 /var/run/docker.sock
           EOF
-      
 
       - name: Deploy to EC2
         run: |
@@ -58,8 +57,9 @@ jobs:
             #docker rm test-image || true
 
             # Remove all old images except the latest one
-            # docker image prune -a -f --filter "label!=${{ secrets.DOCKER_USERNAME }}/test-image:latest"
+            #docker image prune -a -f --filter "label!=${{ secrets.DOCKER_USERNAME }}/test-image:latest"
 
             # Run the new container
-            docker run -d --name test -p 8085:80 ${{ secrets.DOCKER_USERNAME }}/test-image:latest
+            docker run -d --name cont -p 8085:80 ${{ secrets.DOCKER_USERNAME }}/test-image:latest
           EOF
+
