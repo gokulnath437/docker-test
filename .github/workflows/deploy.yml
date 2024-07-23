@@ -53,11 +53,11 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/test-image:latest
 
             # Stop and remove the old container
-            #docker stop test-image || true
-            #docker rm test-image || true
+            docker stop test-image || true
+            docker rm test-image || true
 
             # Remove all old images except the latest one
-            #docker image prune -a -f --filter "label!=${{ secrets.DOCKER_USERNAME }}/test-image:latest"
+            docker image prune -a -f --filter "label!=${{ secrets.DOCKER_USERNAME }}/test-image:latest"
 
             # Run the new container
             docker run -d --name cont -p 8085:80 ${{ secrets.DOCKER_USERNAME }}/test-image:latest
