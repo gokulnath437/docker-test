@@ -39,12 +39,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_KEY }}
 
-      - name: Add user to Docker group
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            sudo usermod -aG docker $USER
-            sudo chmod 666 /var/run/docker.sock
-          EOF
+     
 
       - name: Deploy to EC2
         run: |
