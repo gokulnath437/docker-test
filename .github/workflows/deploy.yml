@@ -54,7 +54,7 @@ jobs:
 
             # Stop and remove the old container
             
-            docker rm cont -f || true
+            docker rm /cont -f || true
 
             # Remove  old images except the latest one
             docker rmi test-image -f
