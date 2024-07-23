@@ -39,7 +39,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_KEY }}
 
-     
+        EOF
 
       - name: Deploy to EC2
         run: |
