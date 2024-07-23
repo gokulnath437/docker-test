@@ -56,8 +56,8 @@ jobs:
             
             docker rm /cont -f || true
 
-            # Remove all old images except the latest one
-            #docker image prune -a -f --filter "label!=${{ secrets.DOCKER_USERNAME }}/test-image:latest"
+            # Remove  old images except the latest one
+            #docker rmi test-image -f
 
             # Run the new container
             docker run -d --name cont -p 8085:80 ${{ secrets.DOCKER_USERNAME }}/test-image:latest
