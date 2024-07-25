@@ -49,18 +49,16 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-           
+          
+            docker rm /cont -f || true
             docker rmi /gokulnath437/test-image -f
+           
             # Pull the latest image
             docker pull ${{ secrets.DOCKER_USERNAME }}/test-image:latest
 
             # Stop and remove the old container
-            
-            docker rm /cont -f || true
 
             # Remove  old images except the latest one
-            
-
             # Run the new container
             docker run -d --name cont -p 8085:80 ${{ secrets.DOCKER_USERNAME }}/test-image:latest
           EOF
