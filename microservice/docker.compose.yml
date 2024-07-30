@@ -1,1 +1,12 @@
-
+version: '3'
+services:
+  service1:
+    build: ./service1
+    ports:
+      - "3001:3001"
+  service2:
+    build: ./service2
+    ports:
+      - "3002:3002"
+    depends_on:
+      - service1
